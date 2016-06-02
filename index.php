@@ -89,7 +89,8 @@ class Artiste {
       else
         echo "L'album est deja enregistre.";
 
-  }
+      }
+    
     
     
     
