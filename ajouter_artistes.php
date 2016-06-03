@@ -11,6 +11,8 @@
         <input id="el2" type="text" name="prenom" /><br>
         <label for="el3"> Album </ label>:
         <input id="el3" type="text" name="album" /><br>
+        <label for="el3"> Date </ label>:
+        <input id="el3" type="date" name="date"  placeholder="AAAA-MM-JJ"/><br>
         </fieldset>
       <input type="submit" name="Ajouter" value="OK">
     </fieldset>
@@ -19,7 +21,8 @@
       <tr>
         <th>Album</th>
         <th>Nom</th>
-        <th>Prenom</th>  
+        <th>Prenom</th> 
+        
       </tr>
            <?php
             include ('index.php');
@@ -30,18 +33,20 @@
                 extract($_GET); /*On extrait les informations en entre dans $nom, $prenom, et $album*/
                 $nv_artiste = new Artiste($nom,$prenom,$conn);
                  if(isset($_GET['album']) && $_GET['album'] != null)
-                   $nv_artiste = new Album($album, $nom, $prenom, $conn);
+                   $nv_artiste = new Album($album, $date, $nom, $prenom, $conn);
                 }
             else 
               echo "Entrer un artiste ou un album.";
             
-            $resultat="SELECT * FROM Artiste"; 
+            $resultat="SELECT * FROM Artiste,Album where idArtiste=numArtiste"; 
 
             if($resultat){
               foreach($conn->query($resultat) as $artiste ){
               echo "<tr>";
               echo "<td>".$artiste['nom']."</td>";
-              echo "<td>".$artiste['prenom']."</td>";  
+              echo "<td>".$artiste['prenom']."</td>";
+              echo "<td>".$artiste['titre']."</td>";
+              echo "<td>".$artiste['dateAlbum']."</td>";
               echo "</tr>";
               }
             }
