@@ -48,15 +48,6 @@ class Artiste {
       echo "L'artiste est deja enregistre.<br>";
 
   }
-  
-  public function getNom(){
-    return $this->nom;
-  }
-  
-  public function getPrenom(){
-    return $this->prenom;
-  }
-  
 
   
   
@@ -114,13 +105,13 @@ class Artiste {
       
       $repetition=false;
       $stmt2 = $conn->prepare("INSERT INTO Utilisateur (email,nom,prenom,mdp) VALUES (:email,:nom,:prenom,:mdp)");
-      $requete_trie = "SELECT * from Utilisateur where email='".$email."' and mdp='".$mdp."'";
+      $requete_trie = "SELECT * from Utilisateur where email='".$email."'";
       $stmt2->bindParam(":nom", $nom);
       $stmt2->bindParam(":prenom", $prenom);
       $stmt2->bindParam(":email", $email);
       $stmt2->bindParam(":mdp", $mdp);
       foreach($conn->query($requete_trie) as $trie){
-          if($trie['email'] == $email && $trie['mdp'] == $mdp) {
+          if($trie['email'] == $email) {
             $repetition = true;
             break;
           }
@@ -133,13 +124,29 @@ class Artiste {
         echo "L'utilisateur est deja enregistre.";
 
       }
+    
+    
+    public function seConnecter($conn, $email, $mdp){
+      $utilisateur=false;
+      $query = "SELECT * from Utilisateur where email='".$email."' and mdp='".$mdp."'";
+      $idUtilisateur = "SELECT idUtilisateur from Utilisateur where email='".$email."' and mdp='".$mdp."'";;
+      foreach($conn->query($query) as $trie){
+          if($trie['email'] == $email && $trie['mdp'] == $mdp) {
+            $utilisateur = true;
+            break;
+          }
+        }
+      if($utilisateur){
+        echo "Bienvenue ".$trie['nom']." ".$trie['prenom'].".";
+      }
+      else
+        echo "Authentification invalide.";
       
     }
+      
+    }
+
     
-    
-
-
-
 
 
 ?>
