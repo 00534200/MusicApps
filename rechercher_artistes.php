@@ -1,13 +1,23 @@
+
 <html>
   <head>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <header>
+    <ul id="nav"><!--
+	--><li><a style="height:40px" href="#">Accueil</a></li><!--
+	--><li><a style="height:40px" href="#">Album</a></li><!--
+	--><li><a style="height:40px" href="#">Artiste</a></li><!--
+	--><li><a  style="height:40px" href="#">Mon Compte</a></li>
+</ul>
+    </header>
+    
      <form action="rechercher_artistes.php" method="get"> 
       <fieldset>
-        <legend><b>Recherche Album</b></legend>
+        <legend><b>Recherche</b></legend>
         <input id="el" type="text" name="rechercher"/>
-        <input type="submit" name="Rechercher" value="Rechercher"><br>
+        <input type="submit" id="Rechercher" value="Rechercher"><br>
         <label for="el">type</label>:
         <select name="select">
           <option value="utilisateur">Utilisateur</option> 
@@ -54,6 +64,8 @@
                       echo "<td>".$var['nom']."</td>";
                       echo "<td>".$var['prenom']."</td>";
                       echo "<td>".$var['email']."</td>";
+                      echo "<td><a href='liste_notes.php?email=".$var['email']." >Notes</a></td>";
+                      echo "<td><a href='liste_commentaires.php'>Commentaires</a></td>";
                       echo "</tr>";
                     }
                   }

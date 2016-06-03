@@ -143,6 +143,18 @@ class Artiste {
         echo "Authentification invalide.";
       
     }
+    
+    public function getListeNote($email, $conn){
+      $query = "SELECT * from Album, Utilisateur natural join Note where idAlbum=numAlbum and email='".$email."'";
+      foreach($conn->query($query) as $trie){
+          echo $trie['note']." ".$trie['titre'];
+        }
+    }
+    
+    public function getListeCommentaires($email){
+      
+    }
+    
       
     }
 
