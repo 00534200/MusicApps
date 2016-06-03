@@ -1,0 +1,26 @@
+fieldset
+{
+  border :3px red double ; 
+  background-color: #483D8B ;
+ 
+}
+
+
+body
+{
+  background-image: url("http://img0.mxstatic.com/wallpapers/ba8f941732cc8c3cdd49c13abb62bd89_large.jpeg");
+  color: red; / Le texte de la page sera blanc /
+}
+
+table
+{
+ border: 4px blue inset;
+  background-color : #483D8B ;
+   float: right;
+    width: 200px;
+}
+
+input
+{
+  color:#ff4000; border-radius:16px;
+}

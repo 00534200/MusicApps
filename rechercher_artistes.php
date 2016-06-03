@@ -1,5 +1,6 @@
 <html>
   <head>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
      <form action="rechercher_artistes.php" method="get"> 
