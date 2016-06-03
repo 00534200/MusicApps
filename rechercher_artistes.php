@@ -17,11 +17,6 @@
     </fieldset>
   </form>
     <table border=1>
-     <!-- <tr>
-        <th>Album</th>
-        <th>Nom</th>
-        <th>Prenom</th>  
-      </tr>-->
            <?php
             include ('index.php');
             $init = new Connexion("dwarves.iut-fbleau.fr","reilhac","reilhac","toto");
@@ -48,10 +43,23 @@
                   }
                 }
                 if($_GET['select'] == "utilisateur") {
+                  $search = "SELECT * from Utilisateur where  (
+                    nom like '%".$rechercher."%' or 
+                    prenom  like '%".$rechercher."%' or
+                    email like '%".$rechercher."%'
+                  )";
+                  if($search){
+                    foreach($conn->query($search) as $var ){
+                      echo "<tr>";
+                      echo "<td>".$var['nom']."</td>";
+                      echo "<td>".$var['prenom']."</td>";
+                      echo "<td>".$var['email']."</td>";
+                      echo "</tr>";
+                    }
+                  }
                   
                 }
             }
-              //echo "Entrer un artiste ou un album.";
             
             $conn = null;
           ?>
