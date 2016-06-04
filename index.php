@@ -145,9 +145,9 @@ class Artiste {
     }
     
     public function getListeNote($email, $conn){
-      $query = "SELECT * from Album, Utilisateur natural join Note where idAlbum=numAlbum and email='".$email."'";
+      $query = "SELECT * from Album, Utilisateur, Note where idAlbum=numAlbum and idUtilisateur=numUtilisateur and email='".$email."' ";
       foreach($conn->query($query) as $trie){
-          echo $trie['note']." ".$trie['titre'];
+          echo "Note :".$trie['note']." Album :".$trie['titre']."<br>";
         }
     }
     

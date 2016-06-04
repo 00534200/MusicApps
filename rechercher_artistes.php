@@ -9,7 +9,7 @@
 	--><li><a style="height:40px" href="#">Accueil</a></li><!--
 	--><li><a style="height:40px" href="#">Album</a></li><!--
 	--><li><a style="height:40px" href="#">Artiste</a></li><!--
-	--><li><a  style="height:40px" href="#">Mon Compte</a></li>
+	--><li><a  style="height:40px" href="seConnecter.html">Mon Compte</a></li>
 </ul>
     </header>
     
@@ -48,6 +48,7 @@
                       echo "<td>".$var['dateAlbum']."</td>";
                       echo "<td>".$var['nom']."</td>";
                       echo "<td>".$var['prenom']."</td>";
+											echo "<td>".$var['note']."</td>";
                       echo "</tr>";
                     }
                   }
@@ -64,7 +65,7 @@
                       echo "<td>".$var['nom']."</td>";
                       echo "<td>".$var['prenom']."</td>";
                       echo "<td>".$var['email']."</td>";
-                      echo "<td><a href='liste_notes.php?email=".$var['email']." >Notes</a></td>";
+                      echo "<td><a href='liste_notes.php?email=".$var['email']."'>Notes</a></td>";
                       echo "<td><a href='liste_commentaires.php'>Commentaires</a></td>";
                       echo "</tr>";
                     }
