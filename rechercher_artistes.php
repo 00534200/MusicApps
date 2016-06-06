@@ -28,7 +28,7 @@
   </form>
     <table border=1>
            <?php
-            include ('index.php');
+            include ('CI/application/models/model.php');
             $init = new Connexion("dwarves.iut-fbleau.fr","reilhac","reilhac","toto");
             $conn = $init->seConnecter();
             if(isset($_GET['rechercher'])){

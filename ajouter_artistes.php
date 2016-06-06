@@ -39,7 +39,7 @@
         
       </tr>
            <?php
-            include ('index.php');
+            include ('CI/application/models/model.php');
       
             $init = new Connexion("dwarves.iut-fbleau.fr","reilhac","reilhac","toto");
             $conn = $init->seConnecter();
