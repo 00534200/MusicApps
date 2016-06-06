@@ -10,7 +10,7 @@
 	--><li><a style="height:40px" href="#">Accueil</a></li><!--
 	--><li><a style="height:40px" href="#">Album</a></li><!--
 	--><li><a style="height:40px" href="#">Artiste</a></li><!--
-	--><li><a  style="height:40px" href="#">Mon Compte</a></li>
+	--><li><a  style="height:40px" href="seConnecter.html">Connexion</a></li>
 </ul>
 			
     </header>

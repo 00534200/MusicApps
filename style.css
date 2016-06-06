@@ -2,7 +2,6 @@
 header{
 	background-image: url("http://static-mb.minutebuzz.com/wp-content/uploads/2015/05/viU3Mkb.jpg") ;
   border: 3px #483D8B inset;
-
   font-family: Brushstroke, fantasy;
   font-size:20px;
   margin-left : -20px;
@@ -22,7 +21,7 @@ header{
 	
 }
 #nav a {
-
+background: linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
     border-radius: 5px;
 	box-shadow: 3px 3px 15px 6px #778899;
 	text-decoration:none;
