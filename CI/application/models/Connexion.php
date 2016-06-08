@@ -21,7 +21,7 @@ class Connexion extends CI_Model {
     }
     
     public function getConnection(){
-        return $this->db;
+        return $conn = new PDO("mysql:host=$this->hostname;dbname=$this->database", $this->username, $this->password);;
     }
 }
 

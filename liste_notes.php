@@ -4,6 +4,7 @@
       $init = new Connexion("dwarves.iut-fbleau.fr","reilhac","reilhac","toto");
       $conn = $init->seConnecter();
       extract($_GET);
-      $liste = Utilisateur::getListeNote($email, $conn);
+      $this->load->model('utilisateur');
+      $this->utilisateur->getListeNote($email);
     ?> 
     

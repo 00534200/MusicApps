@@ -12,8 +12,7 @@ class Utilisateur extends CI_Model{
       $this->prenom=$prenom;
       $this->mdp=$mdp;
       $this->email=$email;
-      $this->load->model('connexion');
-      $conn = $this->connexion->getConnection();
+      $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
       $repetition=false;
       $stmt2 = $conn->prepare("INSERT INTO Utilisateur (email,nom,prenom,mdp) VALUES (:email,:nom,:prenom,:mdp)");
       $requete_trie = "SELECT * from Utilisateur where email='".$email."'";
@@ -38,8 +37,7 @@ class Utilisateur extends CI_Model{
     
     
     public function seConnecter($email, $mdp){
-      $this->load->model('connexion');
-      $conn = $this->connexion->getConnection();
+      $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
       $utilisateur=false;
       $query = "SELECT * from Utilisateur where email='".$email."' and mdp='".$mdp."'";
       $idUtilisateur = "SELECT idUtilisateur from Utilisateur where email='".$email."' and mdp='".$mdp."'";;
@@ -56,9 +54,11 @@ class Utilisateur extends CI_Model{
         echo "Authentification invalide.";
       
     }
+  
     
-    public function getListeNote($email, $conn){
-      $query = "SELECT * from Album, Utilisateur, Note where idAlbum=numAlbum and idUtilisateur=numUtilisateur and email='".$email."' ";
+    public function getListeNote($id){
+      $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+      $query = "SELECT * from Album, Utilisateur, Note where idAlbum=numAlbum and idUtilisateur=numUtilisateur and idUtilisateur='".$id."' ";
       foreach($conn->query($query) as $trie){
           echo "Note :".$trie['note']." Album :".$trie['titre']."<br>";
         }
