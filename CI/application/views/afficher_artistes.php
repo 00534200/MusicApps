@@ -4,32 +4,37 @@
   </head>
     <body>
        <header>
-      
-<ul id="nav"><!--
-
-		--><li><a style="height:40px" href="#">Accueil</a></li><!--
-		--><li><a style="height:40px" href="#">Album</a></li><!--
-		--><li><a style="height:40px" href="artistes">Artiste</a></li><!--
-		--><li><a  style="height:40px" href="connecter">Mon Compte</a></li>
-			<li><a  style="height:40px" href="rechercher">Rechercher</a></li>	
-</ul>
-			
-    </header>
+				<thead><a style="height:40px" href="#">Accueil</a></thead>
+				<thead><a style="height:40px" href="#">Album</a></thead>
+				<thead><a style="height:40px" href="artistes">Artiste</a></thead>
+				<thead><a  style="height:40px" href="connecter">Mon Compte</a></thead>
+				<thead><a  style="height:40px" href="rechercher">Rechercher</a></thead>
+    	</header>
+			<table>
      <form action="artistes/traitement" method="get"> 
-      <fieldset>
         <legend><b>Ajout d'artistes et d'album</b></legend>
-        <label for="el1">Nom</label>:
-        <input id="el1" type="text" name="nom" /><br>
-        <label for="el2"> Prenom </ label>:
-        <input id="el2" type="text" name="prenom" /><br>
-        <label for="el3"> Album </ label>:
-        <input id="el3" type="text" name="album" /><br>
-        <label for="el3"> Date </ label>:
-        <input id="el3" type="date" name="date"  placeholder="AAAA-MM-JJ"/><br>
-        </fieldset>
-      <input type="submit" id="Ajouter" value="OK">
+				<tr>
+					<td>Nom :</td>
+					<td><input type="text" name="nom" /></td>
+				</tr>	
+				<tr>
+					<td>Prenom :</td>
+					<td><input type="text" name="prenom" /></td>
+				</tr>	
+				<tr>
+					<td>Titre Album:</td>
+					<td><input type="text" name="album" /></td>
+				</tr>
+				<tr>
+					<td>Date Album:</td>
+					<td><input type="date" name="date"  placeholder="AAAA-MM-JJ" /></td>
+				</tr>
+			 		<td><input type="submit" id="Ajouter" value="OK"></td>
+			 	<tr>
+      	
     </fieldset>
   </form>
+			</table>
   
     <table border=1>
       <tr>

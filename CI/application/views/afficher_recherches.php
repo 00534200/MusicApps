@@ -5,29 +5,28 @@
   </head>
   <body>
     <header>
-    <ul id="nav"><!--
-			
-		--><li><a style="height:40px" href="#">Accueil</a></li><!--
-		--><li><a style="height:40px" href="#">Album</a></li><!--
-		--><li><a style="height:40px" href="artistes">Artiste</a></li><!--
-		--><li><a  style="height:40px" href="connecter">Mon Compte</a></li>
-			<li><a  style="height:40px" href="rechercher">Rechercher</a></li>	
-</ul>
+				<thead><a style="height:40px" href="#">Accueil</a></thead>
+				<thead><a style="height:40px" href="#">Album</a></thead>
+				<thead><a style="height:40px" href="artistes">Artiste</a></thead>
+				<thead><a  style="height:40px" href="connecter">Mon Compte</a></thead>
+				<thead><a  style="height:40px" href="rechercher">Rechercher</a></thead>
     </header>
-    
-     <form action="" method="get"> 
-      <fieldset>
-        <legend><b>Recherche</b></legend>
-        <input id="el" type="text" name="rechercher"/>
-        <input type="submit" id="Rechercher" value="Rechercher"><br>
-        <label for="el">type</label>:
-        <select name="select">
-          <option value="utilisateur">Utilisateur</option> 
-          <option value="album">Album</option>
-        </select>
-        </fieldset>
-    </fieldset>
-  </form>
+    <table>
+			 <form action="" method="get"> 
+					<legend><b>Recherche</b></legend>
+					<input id="el" type="text" name="rechercher"/>
+					<input type="submit" id="Rechercher" value="Rechercher"><br>
+				 	<tr>
+						<td>type:</td>
+						<td>
+							<select name="select">
+								<option value="utilisateur">Utilisateur</option> 
+								<option value="album">Album</option>
+							</select>
+						</td>	
+				 	</tr>	
+			</form>
+		</table>
     <table border=1>
            <?php
 						$conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
