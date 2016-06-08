@@ -1,15 +1,17 @@
 
 <html>
   <head>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css" />
   </head>
   <body>
     <header>
     <ul id="nav"><!--
-	--><li><a style="height:40px" href="#">Accueil</a></li><!--
-	--><li><a style="height:40px" href="#">Album</a></li><!--
-	--><li><a style="height:40px" href="#">Artiste</a></li><!--
-	--><li><a  style="height:40px" href="connecter">Mon Compte</a></li>
+			
+		--><li><a style="height:40px" href="#">Accueil</a></li><!--
+		--><li><a style="height:40px" href="#">Album</a></li><!--
+		--><li><a style="height:40px" href="artistes">Artiste</a></li><!--
+		--><li><a  style="height:40px" href="connecter">Mon Compte</a></li>
+			<li><a  style="height:40px" href="rechercher">Rechercher</a></li>	
 </ul>
     </header>
     

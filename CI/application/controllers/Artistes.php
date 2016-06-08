@@ -13,7 +13,7 @@
         $this->model_artiste->inserer($nom,$prenom);
          if(isset($_GET['album']) && $_GET['album'] != null){
            $this->load->model('model_album');
-           $this->model_album->inserer($album, $date, $nom, $prenom);
+           $this->model_album->inserer($album, $nom, $prenom);
          }
         }
       }
