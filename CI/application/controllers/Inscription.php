@@ -24,6 +24,8 @@
         if($champ_vide == false && $email_valide == true && $mdp == $mdp1 && strlen($nom) >1 && strlen($prenom)>1){
           $this->load->model('utilisateur');
           $this->utilisateur->inserer($email, $nom, $prenom, $mdp);
+          $this->load->helper('url');
+          redirect('connecter');
         }
         if($champ_vide ==true)
           echo "Tous les champs sont obligatoires.<br>";

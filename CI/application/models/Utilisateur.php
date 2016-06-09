@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Utilisateur extends CI_Model{
     private $email;
     private $nom;
@@ -37,6 +36,7 @@ class Utilisateur extends CI_Model{
     
     
     public function seConnecter($email, $mdp){
+      session_start();
       $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
       $utilisateur=false;
       $query = "SELECT * from Utilisateur where email='".$email."' and mdp='".$mdp."'";
@@ -48,6 +48,8 @@ class Utilisateur extends CI_Model{
           }
         }
       if($utilisateur){
+        $_SESSION['email'] =$email;
+        $_SESSION['etat_conn'] ="deconnexion";
         echo "Bienvenue ".$trie['nom']." ".$trie['prenom'].".";
       }
       else

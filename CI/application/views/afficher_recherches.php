@@ -1,4 +1,7 @@
-
+<?php
+	if(!isset($_SESSION['etat_conn']))
+	session_start();
+?>
 <html>
   <head>
     <link rel="stylesheet" href="assets/css/bootstrap.css" />
@@ -6,9 +9,12 @@
   <body>
     <header>
 				<thead><a style="height:40px" href="#">Accueil</a></thead>
-				<thead><a style="height:40px" href="#">Album</a></thead>
-				<thead><a style="height:40px" href="artistes">Artiste</a></thead>
-				<thead><a  style="height:40px" href="connecter">Mon Compte</a></thead>
+				<thead><a style="height:40px" href="artistes">Ajouter</a></thead>
+        <thead>
+          <a style="height:40px" href = <?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/CI/'. $_SESSION['etat_conn']; ?>>
+           <?php echo $_SESSION['etat_conn'];?>
+          </a>
+        </thead>
 				<thead><a  style="height:40px" href="rechercher">Rechercher</a></thead>
     </header>
     <table>
@@ -27,27 +33,28 @@
 				 	</tr>	
 			</form>
 		</table>
-    <table border=1>
-           <?php
+    <table class="table table-striped   table-condensed">
+           <?php	
 						$conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
             if(isset($_GET['rechercher'])){
                 extract($_GET); /*On extrait les informations en entre dans $nom, $prenom, et $album*/
                 if($_GET['select'] == "album") {
-                  $search="SELECT * from Artiste, Album where idArtiste = numArtiste and (
-										dateAlbum like '%".$rechercher."%' or 
-										nom like '%".$rechercher."%' or
-										prenom  like '%".$rechercher."%' or
+                  $search="SELECT *,max(idAlbum) from Album where (
+										dateAlbum like '%".$rechercher."%' or
 										titre like '%".$rechercher."%' or
 										genre like '%".$rechercher."%' or
 										note like '%".$rechercher."%'
 									)";
                   if($search){
+										$recurrence;
                     foreach($conn->query($search) as $var ){
                       echo "<tr>";
-                      echo "<td>".$var['titre']."</td>";
-                      echo "<td>".$var['dateAlbum']."</td>";
+                      echo "<td><a href='album/info/".$var['idAlbum']."'>".$var['titre']."</a></td>";
+											echo "<td>".$var['dateAlbum']."</td>";
 											echo "<td>".$var['note']."</td>";
+											echo "<td>".$var['genre']."</td>";
                       echo "</tr>";
+											
                     }
                   }
                 }

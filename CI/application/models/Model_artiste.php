@@ -1,4 +1,5 @@
 <?php
+session_start();
 class Model_artiste extends CI_Model {
     private $nom;
     private $prenom;
@@ -23,10 +24,10 @@ class Model_artiste extends CI_Model {
         }
     if($repetition == false) {
       $stmt->execute();
-      echo "L'artiste a ete enregistre avec succes.";
+      $_SESSION['message_ajout_artiste'] =  "L'artiste a ete enregistre avec succes.";
     }
     else
-      echo "L'artiste est deja enregistre.<br>";
+      $_SESSION['message_ajout_artiste'] =  "L'artiste est deja enregistre.";
 
   }
 

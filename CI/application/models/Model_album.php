@@ -1,48 +1,86 @@
 <?php
-  class Model_album extends CI_Model {
-      private $album;
-    
-      public function inserer($album, $nom, $prenom){
-      $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");  
-        
-      $this->album = $album; 
-      $repetition=false;
-      $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
-      $stmt = $conn->prepare("INSERT INTO Album (numArtiste,titre,dateAlbum,genre,note) VALUES (:numArtiste,:titre,:dateAlbum,:genre,:note)");
-      $requete_trie = "SELECT * from Artiste, Album where idArtiste=numArtiste"; /*Requete pour verifier que lalbum nest pas deja dans la base de donnee*/
-              
-      $query = $conn->query("SELECT idArtiste from Artiste where nom='".$nom."' and prenom ='".$prenom."'"); /*Requete pour inserer un album*/  
-      $resultat = $query->fetch(PDO::FETCH_ASSOC);
-      $numArt = $resultat['idArtiste'];
-        
-      $query1 = $conn->query("SELECT * from Album where titre='".$album."' and (dateAlbum!='0000-00-00' or genre != null or note!=null) limit 1 "); 
-      $resultat1 = $query1->fetch(PDO::FETCH_ASSOC);
-      $dateAlbum = $resultat1['dateAlbum'];
-      $genre = $resultat1['genre'];
-      $note = $resultat1['note'];  
-        
-      $stmt->bindParam(":numArtiste", $numArt);
-      $stmt->bindParam(":titre", $album);
-      $stmt->bindParam(":dateAlbum", $dateAlbum);
-      $stmt->bindParam(":genre", $genre);
-      $stmt->bindParam(":note", $note);  
-        
-        
-      foreach($conn->query($requete_trie) as $trie){
-          if($trie['titre'] == $album && $numArt ==$trie['numArtiste']) {
-            $repetition = true;
-            break;
-          }
-        }
-      if($repetition == false){
-        $stmt->execute();
-        echo "L'album a ete enregistre avec succes.";
-      }
-      else
-        echo "L'album est deja enregistre.";
+  class Model_album extends CI_Model {     
+      public function inserer($date, $genre, $album, $nom, $prenom){
+        session_start();
+        $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");  
+        $repetition=false;
+        $stmt = $conn->prepare("INSERT INTO Album (numArtiste,titre,dateAlbum,genre) VALUES (:numArtiste,:titre,:dateAlbum,:genre)");
+        $requete_trie = "SELECT * from Artiste, Album where idArtiste=numArtiste"; /*Requete pour verifier que lalbum nest pas deja dans la base de donnee*/
 
-      }
-      }  
+        $query = $conn->query("SELECT idArtiste from Artiste where nom='".$nom."' and prenom ='".$prenom."'"); /*Requete pour inserer un album*/  
+        $resultat = $query->fetch(PDO::FETCH_ASSOC);
+        $numArt = $resultat['idArtiste'];
+
+
+        $stmt->bindParam(":numArtiste", $numArt);
+        $stmt->bindParam(":titre", $album);
+        $stmt->bindParam(":dateAlbum", $date);
+        $stmt->bindParam(":genre", $genre); 
+
+
+        foreach($conn->query($requete_trie) as $trie){
+            if($trie['titre'] == $album && $numArt ==$trie['numArtiste']) {
+              $repetition = true;
+              break;
+            }
+          }
+        if($repetition == false){
+          $stmt->execute();
+          $_SESSION['message_ajout_album'] = "L'album a ete enregistre avec succes.";
+        }
+        else
+          $_SESSION['message_ajout_album'] = "L'album est deja enregistre.";
+
+        }
+                                      
+        public function getInfo($id){
+          $query = "SELECT * from Album, Artiste where titre in (
+          SELECT titre from Album where idAlbum =".$id."
+          ) and idArtiste=numArtiste";
+          return $query;
+        }
     
+        public function insererNote($note, $titre, $email){
+          $repetition = false;
+          
+          $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+          
+          $query = $conn->query("SELECT * from Utilisateur where email ='".$email."'"); 
+          $resultat = $query->fetch(PDO::FETCH_ASSOC);
+          $numUtilisateur = $resultat['idUtilisateur'];
+          
+          $query = $conn->query("SELECT * from Album where titre ='".$titre."'");   
+          $resultat = $query->fetch(PDO::FETCH_ASSOC);
+          $numAlbum = $resultat['idAlbum'];
+          
+          $stmt = $conn->prepare("INSERT INTO Note(dateNote, note, numUtilisateur, numAlbum) VALUES (:dateNote,:note,:numUtilisateur,:numAlbum)");
+          $date = strftime('%Y-%m-%d');
+          $stmt->bindParam(":dateNote", $date);
+          $stmt->bindParam(":note", $note);
+          $stmt->bindParam(":numUtilisateur", $numUtilisateur);
+          $stmt->bindParam(":numAlbum", $numAlbum);
+          
+          /* Verification que l'album n'est pas deja note*/
+          $query = $conn->query("SELECT * from Utilisateur,Note,Album where 
+					idUtilisateur=numUtilisateur 
+					and idAlbum=numAlbum 
+					and email='".$_SESSION['email']."'"); 
+          
+          foreach($query as $verif){
+              if($titre == $verif['titre']){
+                $repetition = true;/*L'utilisateur a deja note cette album, on met la note a jour*/
+                break;
+              }
+          }
+          
+          if($repetition ==true){
+            $stmt = $conn->prepare("UPDATE Note SET note =".$note.",dateNote ='".strftime('%Y-%m-%d')."' WHERE numUtilisateur=".$numUtilisateur."");
+            $stmt1->execute;
+          }
+          
+            $stmt->execute();
+        }
+      }
+
     
 ?>

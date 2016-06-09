@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <html>
   <head>
     <link rel="stylesheet" href="assets/css/bootstrap.css" />
@@ -5,9 +8,12 @@
     <body>
        <header>
 				<thead><a style="height:40px" href="#">Accueil</a></thead>
-				<thead><a style="height:40px" href="#">Album</a></thead>
-				<thead><a style="height:40px" href="artistes">Artiste</a></thead>
-				<thead><a  style="height:40px" href="connecter">Mon Compte</a></thead>
+				<thead><a style="height:40px" href="artistes">Ajouter</a></thead>
+        <thead>
+          <a style="height:40px" href = <?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/CI/'. $_SESSION['etat_conn']; ?>>
+           <?php echo $_SESSION['etat_conn'];?>
+          </a>
+        </thead>
 				<thead><a  style="height:40px" href="rechercher">Rechercher</a></thead>
     	</header>
 			<table>
@@ -15,47 +21,62 @@
         <legend><b>Ajout d'artistes et d'album</b></legend>
 				<tr>
 					<td>Nom :</td>
-					<td><input type="text" name="nom" /></td>
+					<td><input style="height:30px" type="text" name="nom" /></td>
 				</tr>	
 				<tr>
 					<td>Prenom :</td>
-					<td><input type="text" name="prenom" /></td>
+					<td><input style="height:30px" type="text" name="prenom" /></td>
 				</tr>	
-				<tr>
-					<td>Titre Album:</td>
-					<td><input type="text" name="album" /></td>
-				</tr>
-				<tr>
-					<td>Date Album:</td>
-					<td><input type="date" name="date"  placeholder="AAAA-MM-JJ" /></td>
-				</tr>
-			 		<td><input type="submit" id="Ajouter" value="OK"></td>
 			 	<tr>
-      	
-    </fieldset>
+					<td>Titre :</td>
+					<td><input style="height:30px" type="text" name="album" /></td>
+				</tr>
+				<tr>
+					<td>Date :</td>
+					<td><input style="height:30px" type="text" name="date"  placeholder="AAAA" /></td>
+				</tr>
+			 	<tr>
+					<td>Genre :</td>
+					<td><input style="height:30px" type="text" name="genre"  /></td>
+				</tr>
+			 		<td><input style="height:30px" type="submit" id="Ajouter" value="OK"></td>
+			 	<tr>
   </form>
 			</table>
   
-    <table border=1>
+    <table class="table table-striped   table-condensed">
       <tr>
-        <th>Album</th>
         <th>Nom</th>
-        <th>Prenom</th> 
+        <th>Prenom</th>
+				<th>Titre</th>
+        <th>Date</th>
+				<th>Genre</th>
+        <th>Note</th>
       </tr>
 				<?php
-					$resultat="SELECT * FROM Artiste,Album where idArtiste=numArtiste"; 
-					if($resultat){
-						$conn = new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
-						foreach($conn->query($resultat) as $artiste ){
-						echo "<tr>";
-						echo "<td>".$artiste['nom']."</td>";
-						echo "<td>".$artiste['prenom']."</td>";
-						echo "<td>".$artiste['titre']."</td>";
-						echo "<td>".$artiste['dateAlbum']."</td>";
-						echo "<td>".$artiste['note']."</td>";	
-						echo "</tr>";
-						}
+					$conn = new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+					if(isset($_SESSION['message_ajout_artiste'])){
+						echo "<p>".$_SESSION['message_ajout_artiste'].".</p>";
+						unset($_SESSION['message_ajout_artiste']);
 					}
+					if(isset($_SESSION['message_ajout_album'])){
+						echo "<p>".$_SESSION['message_ajout_album'].".</p>";
+						unset($_SESSION['message_ajout_album']);
+					}
+					$resultat="SELECT * FROM Artiste, Album where idArtiste=numArtiste";
+					if($resultat){
+							foreach($conn->query($resultat) as $afficher ){
+								echo "<tr>";
+								echo "<td>".$afficher['nom']."</td>";
+								echo "<td>".$afficher['prenom']."</td>";
+								echo "<td>".$afficher['titre']."</td>";
+								echo "<td>".$afficher['dateAlbum']."</td>";
+								echo "<td>".$afficher['genre']."</td>";
+								echo "<td>".$afficher['note']."</td>";	
+								echo "</tr>";
+							}
+						}
+					
 				?>
     </table>
   </body>
