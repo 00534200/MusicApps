@@ -39,14 +39,20 @@
             if(isset($_GET['rechercher'])){
                 extract($_GET); /*On extrait les informations en entre dans $nom, $prenom, et $album*/
                 if($_GET['select'] == "album") {
-                  $search="SELECT *,max(idAlbum) from Album where (
+                  $search="SELECT * from Album where (
 										dateAlbum like '%".$rechercher."%' or
 										titre like '%".$rechercher."%' or
 										genre like '%".$rechercher."%' or
 										note like '%".$rechercher."%'
-									)";
+									) group by (titre)";
                   if($search){
 										$recurrence;
+										echo "<tr>";
+										echo "<th>Titre</th>";
+										echo "<th>Date</th>";
+										echo "<th>Note</th>";
+										echo "<th>Genre</th>";
+										echo "</tr>";
                     foreach($conn->query($search) as $var ){
                       echo "<tr>";
                       echo "<td><a href='album/info/".$var['idAlbum']."'>".$var['titre']."</a></td>";
@@ -65,6 +71,10 @@
 											email like '%".$rechercher."%'
 										)";
                   if($search){
+										echo "<tr>";
+										echo "<th>Nom</th>";
+										echo "<th>Prenom</th>";
+										echo "</tr>";
                     foreach($conn->query($search) as $var ){
                       echo "<tr>";
                       echo "<td>".$var['nom']."</td>";

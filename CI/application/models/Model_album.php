@@ -24,6 +24,23 @@
               break;
             }
           }
+				
+				$requete_trie = "SELECT * from Album where titre='".$album."' limit 1";
+				 foreach($conn->query($requete_trie) as $trie){
+            if($trie['titre'] == $album && $numArt !=$trie['numArtiste']) {
+							$stmt = $conn->prepare("INSERT INTO Album (numArtiste,titre,dateAlbum,genre,note,idAlbum) VALUES (:numArtiste,:titre,:dateAlbum,:genre,:note,:idAlbum)");
+							$stmt->bindParam(":numArtiste", $numArt);
+							$stmt->bindParam(":titre", $album);
+							$stmt->bindParam(":dateAlbum", $trie['dateAlbum']);
+							$stmt->bindParam(":genre", $trie['genre']);
+							$stmt->bindParam(":note", $trie['note']);
+							$stmt->bindParam(":idAlbum", $trie['idAlbum']);
+							$repetition = false;
+              break;
+            }
+          }
+					
+				
         if($repetition == false){
           $stmt->execute();
           $_SESSION['message_ajout_album'] = "L'album a ete enregistre avec succes.";
