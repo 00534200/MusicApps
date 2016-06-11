@@ -84,5 +84,25 @@
 						</td>	
 				 	</tr>	
 			</form>
+		
+		
+		     <form method="GET" action="com.php">
+           <p>
+       <label for="ameliorer">
+      Que pensez vous de cette music?
+       </label>
+       <br />
+       
+       <textarea  id="com1" rows="10" cols="50">
+       </textarea>       
+          </p>
+        
+         <input type="submit" id="Ajouter" value="OK">
+           </form>
+		
+		
+		
+		
+		
   </body>
 </html>
