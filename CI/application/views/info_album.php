@@ -86,14 +86,14 @@
 			</form>
 		
 		
-		     <form method="GET" action="com.php">
+		     <form action='commentaire/ajouter/".$afficher['titre']."' method='get'>
            <p>
        <label for="ameliorer">
       Que pensez vous de cette music?
        </label>
        <br />
        
-       <textarea  id="com1" rows="10" cols="50">
+       <textarea  id="com" rows="10" cols="50">
        </textarea>       
           </p>
         
