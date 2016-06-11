@@ -92,9 +92,8 @@
           
           if($repetition ==true){
             $stmt = $conn->prepare("UPDATE Note SET note =".$note.",dateNote ='".strftime('%Y-%m-%d')."' WHERE numUtilisateur=".$numUtilisateur."");
-            $stmt1->execute;
           }
-          
+					
             $stmt->execute();
         }
       }

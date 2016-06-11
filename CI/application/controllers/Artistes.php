@@ -9,23 +9,24 @@
     public function traitement(){
       if(isset($_GET['nom']) && isset($_GET['prenom']) && $_GET['prenom'] != null && $_GET['nom'] != null){
         extract($_GET); /*On extrait les informations en entre dans $nom, $prenom, et $album*/
+        $date_str =(string)$date;
         $this->load->model('model_artiste');
         $this->model_artiste->inserer($nom,$prenom);
          if(isset($_GET['album']) && $_GET['album'] != null){
            if($date != null && $genre != null){
-               if(strlen($date)==4){
+               if(strlen($date_str)==4){
                  $this->load->model('model_album');
-                 $this->model_album->inserer($date, $genre,$album, $nom, $prenom);
+                 $this->model_album->inserer($date_str, $genre,$album, $nom, $prenom);
                }
             }
              else {
                $this->load->model('model_album');
-               $this->model_album->inserer($date, $genre,$album, $nom, $prenom);
+               $this->model_album->inserer($date_str, $genre,$album, $nom, $prenom);
              }
          }
+      }
           $this->load->helper('url');
           redirect('artistes');
-      }
     }
     
  

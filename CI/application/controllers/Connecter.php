@@ -5,9 +5,10 @@ session_start();
     public function index(){
       if(isset($_SESSION['email']) && isset($_SESSION['etat_conn']))
         $this->load->view('afficher_recherches');
-      else  
+      else { 
         $this->load->view('formulaire_connexion');
-    }  
+      }  
+    }
 
     public function traitement(){  
     if(isset($_POST['email']) && isset($_POST['mdp'])) {
