@@ -28,12 +28,13 @@
 				$requete_trie = "SELECT * from Album where titre='".$album."' limit 1";
 				 foreach($conn->query($requete_trie) as $trie){
             if($trie['titre'] == $album && $numArt !=$trie['numArtiste']) {
-							$stmt = $conn->prepare("INSERT INTO Album (numArtiste,titre,dateAlbum,genre,note,idAlbum) VALUES (:numArtiste,:titre,:dateAlbum,:genre,:note,:idAlbum)");
+							$stmt = $conn->prepare("INSERT INTO Album (numArtiste,titre,dateAlbum,genre,note,commentaire,idAlbum) VALUES (:numArtiste,:titre,:dateAlbum,:genre,:note,:commentaire,:idAlbum)");
 							$stmt->bindParam(":numArtiste", $numArt);
 							$stmt->bindParam(":titre", $album);
 							$stmt->bindParam(":dateAlbum", $trie['dateAlbum']);
 							$stmt->bindParam(":genre", $trie['genre']);
 							$stmt->bindParam(":note", $trie['note']);
+							$stmt->bindParam(":commentaire", $trie['commentaire']);
 							$stmt->bindParam(":idAlbum", $trie['idAlbum']);
 							$repetition = false;
               break;
@@ -96,6 +97,49 @@
 					
             $stmt->execute();
         }
+		
+		 public function insererCom($commentaire, $titre, $email){
+          $repetition = false;
+          
+          $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+          
+          $query = $conn->query("SELECT * from Utilisateur where email ='".$email."'"); 
+          $resultat = $query->fetch(PDO::FETCH_ASSOC);
+          $numUtilisateur = $resultat['idUtilisateur'];
+          
+          $query = $conn->query("SELECT * from Album where titre ='".$titre."'");   
+          $resultat = $query->fetch(PDO::FETCH_ASSOC);
+          $numAlbum = $resultat['idAlbum'];
+          
+          $stmt = $conn->prepare("INSERT INTO Commentaire(dateCom, contenue, numUtilisateur, numAlbum) VALUES (:dateCom,:contenue,:numUtilisateur,:numAlbum)");
+          $date = strftime('%Y-%m-%d');
+          $stmt->bindParam(":dateCom", $date);
+          $stmt->bindParam(":contenue", $contenue);
+          $stmt->bindParam(":numUtilisateur", $numUtilisateur);
+          $stmt->bindParam(":numAlbum", $numAlbum);
+          
+          /* Verification que l'album n'est pas deja note*/
+          $query = $conn->query("SELECT * from Utilisateur,Commentaire,Album where 
+					idUtilisateur=numUtilisateur 
+					and idAlbum=numAlbum 
+					and email='".$_SESSION['email']."'"); 
+          
+          foreach($query as $verif){
+              if($titre == $verif['titre']){
+                $repetition = true;/*L'utilisateur a deja note cette album, on met la note a jour*/
+                break;
+              }
+          }
+          
+          if($repetition ==true){
+            $stmt = $conn->prepare("UPDATE commentaire SET  commentaire =".$commentaire.",dateNote ='".strftime('%Y-%m-%d')."' WHERE numUtilisateur=".$numUtilisateur."");
+            $stmt1->execute;
+          }
+          
+            $stmt->execute();
+        }
+		
+		
       }
 
     

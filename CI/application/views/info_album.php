@@ -97,5 +97,25 @@
 						</td>	
 				 	</tr>	
 			</form>
+		
+		
+		     <form action='commentaire/ajouter/".$afficher['titre']."' method='get'>
+           <p>
+       <label for="ameliorer">
+      Que pensez vous de cette music?
+       </label>
+       <br />
+       
+       <textarea  id="com" rows="10" cols="50">
+       </textarea>       
+          </p>
+        
+         <input type="submit" id="Ajouter" value="OK">
+           </form>
+		
+		
+		
+		
+		
   </body>
 </html>
