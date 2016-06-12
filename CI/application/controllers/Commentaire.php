@@ -9,9 +9,9 @@
 
     
     public function ajouter($titre){
-      extract($_GET);
+      extract($_POST);
       $this->load->model('model_album');
-      $this->model_album->insererCom($com, $titre, $_SESSION['email']);
+      $this->model_album->insererCom($commentaire, $titre, $_SESSION['email']);
       $this->load->helper('url');
       redirect('commentaire');
     }

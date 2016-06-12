@@ -111,10 +111,10 @@
           $resultat = $query->fetch(PDO::FETCH_ASSOC);
           $numAlbum = $resultat['idAlbum'];
           
-          $stmt = $conn->prepare("INSERT INTO Commentaire(dateCom, contenue, numUtilisateur, numAlbum) VALUES (:dateCom,:contenue,:numUtilisateur,:numAlbum)");
+          $stmt = $conn->prepare("INSERT INTO Commentaire(dateCom, contenue, numUtilisatuer, numAlbum) VALUES (:dateCom,:contenue,:numUtilisateur,:numAlbum)");
           $date = strftime('%Y-%m-%d');
           $stmt->bindParam(":dateCom", $date);
-          $stmt->bindParam(":contenue", $contenue);
+          $stmt->bindParam(":contenue", $commentaire);
           $stmt->bindParam(":numUtilisateur", $numUtilisateur);
           $stmt->bindParam(":numAlbum", $numAlbum);
           
@@ -132,7 +132,7 @@
           }
           
           if($repetition ==true){
-            $stmt = $conn->prepare("UPDATE Commentaire SET  contenue =".$contenue.",dateNote ='".strftime('%Y-%m-%d')."' WHERE numUtilisateur=".$numUtilisateur."");
+            $stmt = $conn->prepare("UPDATE Commentaire SET  contenue =".$commentaire.",dateNote ='".strftime('%Y-%m-%d')."' WHERE numUtilisateur=".$numUtilisateur."");
             $stmt1->execute;
           }
           
