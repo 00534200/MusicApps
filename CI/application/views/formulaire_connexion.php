@@ -1,8 +1,14 @@
 <html>
   <head>
    <link rel="stylesheet" href="assets/css/bootstrap.css" />
-
-  </head>
+		<script type="text/javascript">
+			function noBack(){window.history.forward()}
+			noBack();
+			window.onload=noBack;
+			window.onpageshow=function(evt){if(evt.persisted)noBack()}
+			window.onunload=function(){void(0)}
+		</script>	
+	</head>	
   <body>
 		<h2>MusicApps</h2>
     <table>

@@ -5,6 +5,13 @@
 <html>
   <head>
     <link rel="stylesheet" href="assets/css/bootstrap.css" />
+		<script type="text/javascript">
+			function noBack(){window.history.forward()}
+			noBack();
+			window.onload=noBack;
+			window.onpageshow=function(evt){if(evt.persisted)noBack()}
+			window.onunload=function(){void(0)}
+		</script>	
   </head>
   <body>
     <header>
@@ -16,6 +23,19 @@
           </a>
         </thead>
 				<thead><a  style="height:40px" href="rechercher">Rechercher</a></thead>
+				 <?php
+				 	if($_SESSION['ADMIN'] == true) {
+						echo "<thead>";
+							echo "<a href='demandes' style='height:40px'>Demandes</a>";
+						echo "</thead>";
+					}
+				 ?>
+					<thead>
+        		<?php echo $_SESSION['type']." : ".$_SESSION['nom']." ";
+							if(isset($_SESSION['prenom']))
+								echo $_SESSION['prenom']; 
+						?>
+					</thead>
     </header>
     <table>
 			 <form action="" method="get"> 
@@ -69,7 +89,7 @@
 											nom like '%".$rechercher."%' or 
 											prenom  like '%".$rechercher."%' or
 											email like '%".$rechercher."%'
-										)";
+										) and inscrit = 1";
                   if($search){
 										echo "<tr>";
 										echo "<th>Nom</th>";

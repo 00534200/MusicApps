@@ -16,6 +16,19 @@
           </a>
         </thead>
 				<thead><a  style="height:40px" href="rechercher">Rechercher</a></thead>
+				 <?php
+				 	if($_SESSION['ADMIN'] == true) {
+						echo "<thead>";
+							echo "<a href='demandes' style='height:40px'>Demandes</a>";
+						echo "</thead>";
+					}
+				 ?>
+					<thead>
+        		<?php echo $_SESSION['type']." : ".$_SESSION['nom']." ";
+							if(isset($_SESSION['prenom']))
+								echo $_SESSION['prenom']; 
+						?>
+					</thead>
     	</header>
 			<table>
 				 <form action="artistes/traitement" method="get"> 
@@ -34,7 +47,7 @@
 						</tr>
 						<tr>
 							<td>Date :</td>
-							<td><input style="height:30px" type="text" name="date"  placeholder="AAAA" /></td>
+							<td><input style="height:30px" type="number" name="date"  min="1800" max="<?php echo date("Y");?>" placeholder="ex: 1997" /></td>
 						</tr>
 						<tr>
 							<td>Genre :</td>
@@ -57,11 +70,11 @@
 								<?php
 									$conn = new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
 									if(isset($_SESSION['message_ajout_artiste'])){
-										echo "<p>".$_SESSION['message_ajout_artiste'].".</p>";
+										echo "<p>".$_SESSION['message_ajout_artiste']."</p>";
 										unset($_SESSION['message_ajout_artiste']);
 									}
 									if(isset($_SESSION['message_ajout_album'])){
-										echo "<p>".$_SESSION['message_ajout_album'].".</p>";
+										echo "<p>".$_SESSION['message_ajout_album']."</p>";
 										unset($_SESSION['message_ajout_album']);
 									}
 									$resultat="SELECT * FROM Album group by (titre)";

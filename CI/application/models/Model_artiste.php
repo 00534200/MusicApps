@@ -11,13 +11,13 @@ class Model_artiste extends CI_Model {
     $repetition=false;
     $conn = new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
     $stmt = $conn->prepare("INSERT INTO Artiste (nom,prenom) VALUES (:nom,:prenom)"); /*Requete pour inserer un artiste*/
-    $requete_trie = "SELECT nom, prenom from Artiste where nom='".$nom."' and prenom='".$prenom."'";/*Requete pour verifier que lartiste nest pas deja dans la base de donnee*/
+    $requete_trie = "SELECT nom, prenom from Artiste";/*Requete pour verifier que lartiste nest pas deja dans la base de donnee*/
     if(!$stmt) die ("pb");
     $stmt->bindParam(":nom", $nom);
     $stmt->bindParam(":prenom", $prenom); 
 
     foreach($conn->query($requete_trie) as $trie){
-          if($trie['nom'] == $nom && $trie['prenom'] == $prenom) {
+          if(($trie['nom'] == $nom && $trie['prenom'] == $prenom) || ($trie['nom'] == $prenom && $trie['prenom'] == $nom)) {
             $repetition = true;
             break;
           }

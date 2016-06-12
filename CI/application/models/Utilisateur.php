@@ -27,7 +27,7 @@ class Utilisateur extends CI_Model{
         }
       if($repetition == false){
         $stmt2->execute();
-        echo "Vous avez ete enregistre avec succes.";
+        echo "Votre demande a ete envoye.";
       }
       else
         echo "L'utilisateur est deja enregistre.";
@@ -39,28 +39,53 @@ class Utilisateur extends CI_Model{
       session_start();
       $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
       $utilisateur=false;
+      $admin = false;
       $query = "SELECT * from Utilisateur where email='".$email."' and mdp='".$mdp."'";
-      $idUtilisateur = "SELECT idUtilisateur from Utilisateur where email='".$email."' and mdp='".$mdp."'";;
+      $idUtilisateur = "SELECT idUtilisateur from Utilisateur where email='".$email."' and mdp='".$mdp."'";
       foreach($conn->query($query) as $trie){
-          if($trie['email'] == $email && $trie['mdp'] == $mdp) {
+          if($trie['email'] == $email && $trie['mdp'] == $mdp && $trie['inscrit']==1) {
             $utilisateur = true;
             break;
           }
         }
+      $query = "SELECT * from Admin where nomAdmin='".$email."' and mdpAdmin='".$mdp."'";
+      foreach($conn->query($query) as $trie1){
+          if($trie1['nomAdmin'] == $email && $trie1['mdpAdmin'] == $mdp) {
+            $utilisateur = true;
+            $admin = true;
+            break;
+          }
+        }
       if($utilisateur){
+        $_SESSION['type'] ="Utilisateur";
         $_SESSION['email'] =$email;
+        $_SESSION['nom'] =$trie['nom'];
+        $_SESSION['prenom'] =$trie['prenom'];
         $_SESSION['etat_conn'] ="deconnexion";
-        echo "Bienvenue ".$trie['nom']." ".$trie['prenom'].".";
+        $_SESSION['ADMIN'] = $admin;
+      }
+      
+      if($admin ==true){
+        $_SESSION['type'] ="Administrateur";
+        $_SESSION['nom'] =$trie1['nomAdmin'];
+        $_SESSION['etat_conn'] ="deconnexion";
+        $_SESSION['ADMIN'] = $admin;
       }
       else
-        echo "Authentification invalide.";
+        echo "Authentification invalide";
       
+    }
+  
+    public function validez($id){
+      $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+      $query = $conn->prepare("UPDATE Utilisateur set inscrit=1 where idUtilisateur =".$id."");
+      $query->execute();
     }
   
     
     public function getListeNote($id){
       $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
-      $query = "SELECT * from Album, Utilisateur, Note where idAlbum=numAlbum and idUtilisateur=numUtilisateur and idUtilisateur='".$id."' ";
+      $query = "SELECT * from Album, Utilisateur, Note where idAlbum=numAlbum and idUtilisateur=numUtilisateur and idUtilisateur='".$id."' group by (titre)";
       foreach($conn->query($query) as $trie){
           echo "Note :".$trie['note']." Album :".$trie['titre']."<br>";
         }

@@ -24,6 +24,19 @@
             Rechercher
           </a>
         </thead>
+				 <?php
+				 	if($_SESSION['ADMIN'] == true) {
+						echo "<thead>";
+							echo "<a href='demandes' style='height:40px'>Demandes</a>";
+						echo "</thead>";
+					}
+				 ?>
+					<thead>
+        		<?php echo $_SESSION['type']." : ".$_SESSION['nom']." ";
+							if(isset($_SESSION['prenom']))
+								echo $_SESSION['prenom']; 
+						?>
+					</thead>
     </header>
     <table>
       <?php
@@ -75,7 +88,7 @@
 				 	<tr>
 						<td>Ta note :</td>
 						<td>
-							<input min="0" max="10" type="number" name="note"/>/10
+							<input min="0" max="10" type="number" name="note"?>/10
 						</td>	
 				 	</tr>
 					<tr>
