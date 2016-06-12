@@ -86,18 +86,17 @@
 			</form>
 		
 		
-		     <form action='commentaire/ajouter/".$afficher['titre']."' method='get'>
-           <p>
+<?php echo "<form action='commentaire/ajouter/".$afficher['titre']."' method='get'>";   ?>
        <label for="ameliorer">
       Que pensez vous de cette music?
        </label>
        <br />
        
-       <textarea  id="com" rows="10" cols="50">
+       <textarea  id="commentaire" rows="10" cols="50">
        </textarea>       
           </p>
         
-         <input type="submit" id="Ajouter" value="OK">
+         <input type="submit" id="commentaire" value="OK">
            </form>
 		
 		
