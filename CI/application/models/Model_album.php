@@ -132,7 +132,7 @@
           }
           
           if($repetition ==true){
-            $stmt = $conn->prepare("UPDATE commentaire SET  commentaire =".$commentaire.",dateNote ='".strftime('%Y-%m-%d')."' WHERE numUtilisateur=".$numUtilisateur."");
+            $stmt = $conn->prepare("UPDATE Commentaire SET  contenue =".$contenue.",dateNote ='".strftime('%Y-%m-%d')."' WHERE numUtilisateur=".$numUtilisateur."");
             $stmt1->execute;
           }
           
