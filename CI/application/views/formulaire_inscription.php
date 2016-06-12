@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="assets/css/bootstrap.css" />
   </head>
   <body>
+		<h2>MusicApps</h2>
     <table>
 				<form method="post" action="inscription/traitement">
 					<tr>
@@ -27,8 +28,8 @@
 					</tr>
 					<tr>
 						<td><input type="submit" name="Submit" value="Envoyer"></td>
-					<tr>
-						
+						<td><a href="connecter">Annuler</a></td>
+					</tr>	
 				</form>
 		</table>
   </body>

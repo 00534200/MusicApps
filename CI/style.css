@@ -1,84 +1,74 @@
-
-header{
-	background-image: url("http://static-mb.minutebuzz.com/wp-content/uploads/2015/05/viU3Mkb.jpg") ;
-  border: 3px #483D8B inset;
-  font-family: Brushstroke, fantasy;
-  font-size:20px;
-  margin-left : -20px;
-	margin-right : -20px;
-	margin-top : -7px;
+header {
+	background-image: url("http://static-mb.minutebuzz.com/wp-content/uploads/2015/05/viU3Mkb.jpg");
+	border: 3px #483D8B inset;
+	font-family: Brushstroke, fantasy;
+	font-size: 20px;
+	margin-left: -20px;
+	margin-right: -20px;
+	margin-top: -7px;
 }
 
 #nav {
-	padding: 10; margin: 10;
-	text-align: center; 
-
+	padding: 10;
+	margin: 10;
+	text-align: center;
 }
+
 #nav li {
-	
 	display: inline;
 	list-style: none;
-	
 }
+
 #nav a {
-background: linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
-    border-radius: 5px;
+	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+	border-radius: 5px;
 	box-shadow: 3px 3px 15px 6px #778899;
-	text-decoration:none;
-	display:inline-block;
+	text-decoration: none;
+	display: inline-block;
 	margin: 0 50px;
-		color : #F0FFFF ;
-
+	color: #F0FFFF;
 }
+
 #nav a:hover {
-	background-color: #778899; 
+	background-color: #778899;
 }
 
-
-
-fieldset 
-{
-  border :3px #4682B4 ridge ; 
-  background-color: rgba(0, 0, 10, 0.5);
+fieldset {
+	border: 3px #4682B4 ridge;
+	background-color: rgba(0, 0, 10, 0.5);
 	width: 300px;
-	margin-top : 50px;
- 
+	margin-top: 50px;
 }
 
-
-body
-{
-  background-image: url("http://geek-mexicain.net/wp-content/uploads/2014/09/wallhaven-14321.jpg");
-  color: #F0FFFF; /* Le texte de la page sera blanc */
+body {
+	background-image: url("http://geek-mexicain.net/wp-content/uploads/2014/09/wallhaven-14321.jpg");
+	color: #F0FFFF;
+	/* Le texte de la page sera blanc */
 }
 
-table
-{
-  border: 4px #4682B4 inset;
+table {
+	border: 4px #4682B4 inset;
 	background-color: rgba(0, 0, 0, 0.5);
-  float: right;
-  width: 200px;
-	left  : 20px;
+	float: right;
+	width: 200px;
+	left: 20px;
 	bottom: -50px;
 }
 
-input
-{
-	position:absolute;
-  color:#778899; 
-	border-radius:16px;
+input {
+	position: absolute;
+	color: #778899;
+	border-radius: 16px;
 }
 
-#Ajouter{
-	position : absolute ;
-	top :255px;
-	left : 265px;
+#Ajouter {
+	position: absolute;
+	top: 255px;
+	left: 265px;
 }
 
-#Rechercher{
-  	position : absolute ;
-	top :185px;
-	left : 250px;
+#Rechercher {
+	position: absolute;
+	top: 185px;
+	left: 250px;
 }
-
-
