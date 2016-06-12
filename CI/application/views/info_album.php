@@ -105,9 +105,9 @@
        </label>
        <br />
        <textarea  name ="commentaire" rows="10" cols="50">
-			
+			         
+
        </textarea>       
-         
 	 <input type="submit" value="OK"/>
            </form>
 		
