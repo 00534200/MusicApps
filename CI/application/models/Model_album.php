@@ -119,21 +119,20 @@
           $stmt->bindParam(":numAlbum", $numAlbum);
           
           /* Verification que l'album n'est pas deja note*/
-          $query = $conn->query("SELECT * from Utilisateur,Commentaire,Album where 
-					idUtilisateur=numUtilisateur 
-					and idAlbum=numAlbum 
-					and email='".$_SESSION['email']."'"); 
+          $query = $conn->query("SELECT  * from Utilisateur,Commentaire,Album where 
+							idUtilisateur=numUtilisatuer
+							and	 numAlbum = ".$numAlbum."  
+							group by (contenue)"); 
           
           foreach($query as $verif){
-              if($titre == $verif['titre']){
+              if($email == $verif['email']){
                 $repetition = true;/*L'utilisateur a deja note cette album, on met la note a jour*/
                 break;
               }
           }
           
           if($repetition ==true){
-            $stmt = $conn->prepare("UPDATE Commentaire SET  contenue =".$commentaire.",dateNote ='".strftime('%Y-%m-%d')."' WHERE numUtilisateur=".$numUtilisateur."");
-            $stmt1->execute;
+            $stmt = $conn->prepare("UPDATE Commentaire SET  contenue ='".$commentaire."',dateCom ='".strftime('%Y-%m-%d')."' WHERE numUtilisatuer=".$numUtilisateur."");
           }
           
             $stmt->execute();

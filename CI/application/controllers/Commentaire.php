@@ -6,15 +6,11 @@
       $data['value']=$_SESSION["info_album"];
       $this->load->view('info_album',$data);
     }
-
-    
-        }
     
     public function liste($id){  
       $this->load->model('utilisateur');
       $this->utilisateur->getListeCommentaire($id);
     }
-    
     
     public function ajouter($titre){
       extract($_POST);

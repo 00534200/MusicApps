@@ -97,36 +97,32 @@
 						</td>	
 				 	</tr>	
 			</form>
-		
-		
-<<<<<<< HEAD
-		
-<?php echo "<form action='commentaire/ajouter/".$afficher['titre']."' method='POST'>";   ?>
-=======
+			<table>
 			<?php echo "<form action='commentaire/ajouter/".$afficher['titre']."' method='POST'>";?>
->>>>>>> 0f3960a43ada3e6616931ae6a48a6cd70980fe73
        <label for="ameliorer">
       Que pensez vous de cette music?
-       </label>
-       <br />
-       <textarea  name ="commentaire" rows="10" cols="50">
-			         
+       	</label>
+       	<br/>
+       	<textarea  name ="commentaire" rows="10" cols="50"></textarea>       
+	 		 	<input type="submit" value="OK"/>
+       </form>
+			</table>
+			<table border=1>
+		 		 <?php
+						$query = $conn->query("SELECT  * from Utilisateur,Commentaire,Album where 
+							idUtilisateur=numUtilisatuer
+							and	 numAlbum = ".$afficher['idAlbum']."  
+							group by (contenue)");
 
-       </textarea>       
-	 <input type="submit" value="OK"/>
-           </form>
-	<table>
-
-		  <?php
-					$query = $conn->query("SELECT  * from Utilisateur,Commentaire,Album where 
-						idUtilisateur=numUtilisatuer
-            and	 numAlbum = ".$afficher['idAlbum']."  group by (contenue)");
-						 
-          foreach( $query as $afficher){
-						echo "<tr>";
-					echo "<td>".$afficher['contenue']."</td>";
-						echo "<tr/>";
-					}
+						foreach( $query as $afficher){
+							echo "<tr>";
+							echo "<td>".$afficher['email']."</td>";
+							echo "<td>".$afficher['dateCom']."</td>";
+							echo "</tr>";
+							echo "<tr>";
+							echo "<td>".$afficher['contenue']."</td>";
+							echo "<tr/>";
+						}
 				 ?>
 			</table>
 		
