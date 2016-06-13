@@ -99,6 +99,7 @@
 			</form>
 		
 		
+		
 <?php echo "<form action='commentaire/ajouter/".$afficher['titre']."' method='POST'>";   ?>
        <label for="ameliorer">
       Que pensez vous de cette music?
@@ -110,9 +111,20 @@
        </textarea>       
 	 <input type="submit" value="OK"/>
            </form>
-		
-		
-		
+	<table>
+
+		  <?php
+					$query = $conn->query("SELECT  * from Utilisateur,Commentaire,Album where 
+						idUtilisateur=numUtilisatuer
+            and	 numAlbum = ".$afficher['idAlbum']."  group by (contenue)");
+						 
+          foreach( $query as $afficher){
+						echo "<tr>";
+					echo "<td>".$afficher['contenue']."</td>";
+						echo "<tr/>";
+					}
+				 ?>
+			</table>
 		
 		
   </body>

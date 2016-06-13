@@ -90,9 +90,16 @@ class Utilisateur extends CI_Model{
           echo "Note :".$trie['note']." Album :".$trie['titre']."<br>";
         }
     }
+  
+  
+  
     
-    public function getListeCommentaires($email){
-      
+    public function getListeCommentaires($id){
+         $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+      $query = "SELECT * from Album, Utilisateur, Commentaire where idAlbum=numAlbum and idUtilisateur=numUtilisateur and idUtilisateur='".$id."' group by (titre)";
+      foreach($conn->query($query) as $trie){
+          echo "Commentaire :".$trie['commentaire']." Album :".$trie['titre']."<br>";
+        }
     }
     
       

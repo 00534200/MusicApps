@@ -8,6 +8,14 @@
     }
 
     
+        }
+    
+    public function liste($id){  
+      $this->load->model('utilisateur');
+      $this->utilisateur->getListeCommentaire($id);
+    }
+    
+    
     public function ajouter($titre){
       extract($_POST);
       $this->load->model('model_album');
