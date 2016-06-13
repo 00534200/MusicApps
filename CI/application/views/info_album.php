@@ -99,7 +99,7 @@
 			</form>
 		
 		
-<?php echo "<form action='commentaire/ajouter/".$afficher['titre']."' method='POST'>";   ?>
+			<?php echo "<form action='commentaire/ajouter/".$afficher['titre']."' method='POST'>";?>
        <label for="ameliorer">
       Que pensez vous de cette music?
        </label>
