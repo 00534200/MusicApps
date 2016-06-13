@@ -99,8 +99,12 @@
 			</form>
 		
 		
+<<<<<<< HEAD
 		
 <?php echo "<form action='commentaire/ajouter/".$afficher['titre']."' method='POST'>";   ?>
+=======
+			<?php echo "<form action='commentaire/ajouter/".$afficher['titre']."' method='POST'>";?>
+>>>>>>> 0f3960a43ada3e6616931ae6a48a6cd70980fe73
        <label for="ameliorer">
       Que pensez vous de cette music?
        </label>

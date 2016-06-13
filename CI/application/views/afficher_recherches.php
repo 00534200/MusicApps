@@ -1,6 +1,6 @@
 <?php
 	if(!isset($_SESSION['etat_conn']))
-	session_start();
+		session_start();
 ?>
 <html>
   <head>
@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-				<thead><a style="height:40px" href="#">Accueil</a></thead>
+				<thead><a style="height:40px" href="accueil">Accueil</a></thead>
 				<thead><a style="height:40px" href="artistes">Ajouter</a></thead>
         <thead>
           <a style="height:40px" href = <?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/CI/'. $_SESSION['etat_conn']; ?>>
