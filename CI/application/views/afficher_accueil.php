@@ -17,7 +17,7 @@
         </thead>
 				<thead><a  style="height:40px" href="rechercher">Rechercher</a></thead>
 				 <?php
-				 	if($_SESSION['ADMIN'] == true) {
+				 	if(isset($_SESSION['ADMIN'])) {
 						echo "<thead>";
 							echo "<a href='demandes' style='height:40px'>Demandes</a>";
 						echo "</thead>";
@@ -30,6 +30,32 @@
 						?>
 					</thead>          
     </header>
-    <h>Bienvenue <?php echo $_SESSION['nom']." ".$_SESSION['prenom']; ?> !</h>
+		<table>
+			<th>Palmares</th>
+					<?php
+						$conn = new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+						$search = "SELECT * from Album group by(titre)";
+						$top = 3;
+						$tmp = 0;
+						$top_note = array();
+						$titre_album = "";
+							for($i = 1; $i <=$top; $i++){		
+							 foreach($conn->query($search) as $var ){
+									if($tmp < $var['note'] && in_array($var['titre'],$top_note)==false){
+										$tmp = $var['note'];
+										$titre_album = $var['titre'];
+									}
+								}
+								$tmp = 0;
+								$top_note[$i]=$titre_album;
+							}
+							for($i = 1; $i <=$top; $i++){
+									echo "<tr>";
+									echo "<td>".$i." - ".$top_note[$i]."</td>";
+									echo "</tr>";
+							}	
+					?>
+		</table>
+		
   </body>
 </html>

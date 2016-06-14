@@ -8,7 +8,7 @@
   </head>
     <body>
        <header>
-				<thead><a style="height:40px" href="#">Accueil</a></thead>
+				<thead><a style="height:40px" href="accueil">Accueil</a></thead>
 				<thead><a style="height:40px" href="artistes">Ajouter</a></thead>
         <thead>
           <a style="height:40px" href = <?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/CI/'. $_SESSION['etat_conn']; ?>>
@@ -17,7 +17,7 @@
         </thead>
 				<thead><a  style="height:40px" href="rechercher">Rechercher</a></thead>
 				 <?php
-				 	if($_SESSION['ADMIN'] == true) {
+				 	if(isset($_SESSION['ADMIN']) && $_SESSION['ADMIN'] == true) {
 						echo "<thead>";
 							echo "<a href='demandes' style='height:40px'>Demandes</a>";
 						echo "</thead>";
@@ -31,8 +31,10 @@
 					</thead>
     	</header>
 			<table>
-				 <form action="artistes/traitement" method="get"> 
-						<legend><b>Ajout d'artistes et d'album</b></legend>
+				 	<form action="artistes/traitement" method="get"> 
+						</tr>
+							<td><legend><b>Ajout d'artistes</b></legend></td>
+						</tr>
 						<tr>
 							<td>Nom :</td>
 							<td><input style="height:30px" type="text" name="nom" /></td>
@@ -40,7 +42,9 @@
 						<tr>
 							<td>Prenom :</td>
 							<td><input style="height:30px" type="text" name="prenom" /></td>
-						</tr>	
+						</tr>
+							<td><legend><b>Ajout d'album</b></legend></td>
+						</tr>
 						<tr>
 							<td>Titre :</td>
 							<td><input style="height:30px" type="text" name="album" /></td>
@@ -53,8 +57,22 @@
 							<td>Genre :</td>
 							<td><input style="height:30px" type="text" name="genre"  /></td>
 						</tr>
-							<td><input style="height:30px" type="submit" id="Ajouter" value="OK"></td>
 						<tr>
+							<td>Artiste :</td>
+							<td>
+								<select name="idArtiste">
+									<?php
+										$conn = new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+										foreach($conn->query("select * from Artiste") as $afficher) {
+											echo "<option value='".$afficher['idArtiste']."'>".$afficher['nom']." ".$afficher['prenom']."</option>";
+										}	
+									?>
+								</select>
+							</td>	
+						</tr>	
+						<tr>	
+							<td><input style="height:30px" type="submit" id="Ajouter" value="OK"></td>
+						</tr>
 				 </form>
 			</table>
 			<p>Indication : pour ajouter un album mettre son artiste</p>
@@ -68,7 +86,6 @@
 								<th>Note</th>
 							</tr>
 								<?php
-									$conn = new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
 									if(isset($_SESSION['message_ajout_artiste'])){
 										echo "<p>".$_SESSION['message_ajout_artiste']."</p>";
 										unset($_SESSION['message_ajout_artiste']);

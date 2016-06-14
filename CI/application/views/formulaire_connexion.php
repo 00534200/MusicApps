@@ -24,8 +24,17 @@
 				<tr>
 					<td><input type="submit" name="connexion" value="connexion"></td>
 					<td><a href="inscription">s'inscrire</a></td>	
-				</tr>	
+				</tr>
 			</form>
 		</table>
+		<?php
+			if($connexion==false){
+				
+				echo "<p>L’e-mail ou le mot de passe entré</p> 
+							<p>ne correspond à aucun compte.</p>
+							<p><a href='inscription'>Veuillez créer un compte.</a></p>";
+				
+			}
+		?>
   </body>
 </html>

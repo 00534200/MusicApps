@@ -1,15 +1,11 @@
 <?php
   class Model_album extends CI_Model {     
-      public function inserer($date, $genre, $album, $nom, $prenom){
+      public function inserer($date, $genre, $album, $numArt){
         session_start();
         $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");  
         $repetition=false;
         $stmt = $conn->prepare("INSERT INTO Album (numArtiste,titre,dateAlbum,genre) VALUES (:numArtiste,:titre,:dateAlbum,:genre)");
-        $requete_trie = "SELECT * from Artiste, Album where idArtiste=numArtiste"; /*Requete pour verifier que lalbum nest pas deja dans la base de donnee*/
-
-        $query = $conn->query("SELECT idArtiste from Artiste where nom='".$nom."' and prenom ='".$prenom."'"); /*Requete pour inserer un album*/  
-        $resultat = $query->fetch(PDO::FETCH_ASSOC);
-        $numArt = $resultat['idArtiste'];
+        $requete_trie = "SELECT * from Artiste, Album where idArtiste=numArtiste group by(titre)"; /*Requete pour verifier que lalbum nest pas deja dans la base de donnee*/
 
 
         $stmt->bindParam(":numArtiste", $numArt);
@@ -28,13 +24,12 @@
 				$requete_trie = "SELECT * from Album where titre='".$album."' limit 1";
 				 foreach($conn->query($requete_trie) as $trie){
             if($trie['titre'] == $album && $numArt !=$trie['numArtiste']) {
-							$stmt = $conn->prepare("INSERT INTO Album (numArtiste,titre,dateAlbum,genre,note,commentaire,idAlbum) VALUES (:numArtiste,:titre,:dateAlbum,:genre,:note,:commentaire,:idAlbum)");
+							$stmt = $conn->prepare("INSERT INTO Album (numArtiste,titre,dateAlbum,genre,note,idAlbum) VALUES (:numArtiste,:titre,:dateAlbum,:genre,:note,:idAlbum)");
 							$stmt->bindParam(":numArtiste", $numArt);
 							$stmt->bindParam(":titre", $album);
 							$stmt->bindParam(":dateAlbum", $trie['dateAlbum']);
 							$stmt->bindParam(":genre", $trie['genre']);
 							$stmt->bindParam(":note", $trie['note']);
-							$stmt->bindParam(":commentaire", $trie['commentaire']);
 							$stmt->bindParam(":idAlbum", $trie['idAlbum']);
 							$repetition = false;
               break;
@@ -132,11 +127,18 @@
           }
           
           if($repetition ==true){
-            $stmt = $conn->prepare("UPDATE Commentaire SET  contenue ='".$commentaire."',dateCom ='".strftime('%Y-%m-%d')."' WHERE numUtilisatuer=".$numUtilisateur."");
+            $stmt = $conn->prepare("UPDATE Commentaire SET  contenue ='".$commentaire."',dateCom ='".strftime('%Y-%m-%d')."' 
+																		WHERE numUtilisatuer=".$numUtilisateur." and numAlbum=".$numAlbum."");
           }
           
             $stmt->execute();
         }
+		
+				public function supprimerCom($id){
+					$conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+					$query = $conn->prepare("DELETE FROM Commentaire WHERE idCommentaire =".$id."");
+					$query->execute();
+				}
 		
 		
       }

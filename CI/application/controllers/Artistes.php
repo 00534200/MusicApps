@@ -12,24 +12,19 @@
         $date_str =(string)$date;
         $this->load->model('model_artiste');
         $this->model_artiste->inserer($nom,$prenom);
-         if(isset($_GET['album']) && $_GET['album'] != null){
+      }
+       if(isset($_GET['album']) && $_GET['album'] != null){
+           extract($_GET); 
            if($date != null && $genre != null){
-               if(strlen($date_str)==4){
+               if($date>=1800 && $date<=date("Y")){
+                 $id_number=(int) $idArtiste;
                  $this->load->model('model_album');
-                 $this->model_album->inserer($date_str, $genre,$album, $nom, $prenom);
+                 $this->model_album->inserer($date, $genre,$album, $id_number);
                }
             }
-             else {
-               $this->load->model('model_album');
-               $this->model_album->inserer($date_str, $genre,$album, $nom, $prenom);
-             }
          }
-      }
           $this->load->helper('url');
           redirect('artistes');
     }
-    
- 
-
   }  
 ?>

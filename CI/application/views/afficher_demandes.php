@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-				<thead><a style="height:40px" href="#">Accueil</a></thead>
+				<thead><a style="height:40px" href="accueil">Accueil</a></thead>
 				<thead><a style="height:40px" href="artistes">Ajouter</a></thead>
         <thead>
           <a style="height:40px" href = <?php echo 'http://' . $_SERVER['HTTP_HOST'] . '/CI/'. $_SESSION['etat_conn']; ?>>
@@ -44,7 +44,8 @@
               echo "<td>".$user['nom']."</td>";
               echo "<td>".$user['prenom']."</td>";
               echo "<td>".$user['email']."</td>";
-              echo "<td><a href='demandes/validation/".$user['idUtilisateur']."'>Validez</a></td>";
+              echo "<td><a href='demandes/validation/".$user['idUtilisateur']."'>Accepter</a></td>";
+							echo "<td><a href='demandes/refuser/".$user['idUtilisateur']."'>Refuser</a></td>";
               echo "</tr>";
             }     
           ?>  

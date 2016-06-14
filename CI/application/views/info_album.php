@@ -121,6 +121,7 @@
 							echo "</tr>";
 							echo "<tr>";
 							echo "<td>".$afficher['contenue']."</td>";
+							echo "<td><a href='commentaire/supprimer/".$afficher['idCommentaire']."'>Supprimer</a></td>";
 							echo "<tr/>";
 						}
 				 ?>

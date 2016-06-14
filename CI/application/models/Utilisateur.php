@@ -36,7 +36,8 @@ class Utilisateur extends CI_Model{
     
     
     public function seConnecter($email, $mdp){
-      session_start();
+      if(!$_SESSION)
+        session_start();
       $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
       $utilisateur=false;
       $admin = false;
@@ -44,18 +45,13 @@ class Utilisateur extends CI_Model{
       $idUtilisateur = "SELECT idUtilisateur from Utilisateur where email='".$email."' and mdp='".$mdp."'";
       foreach($conn->query($query) as $trie){
           if($trie['email'] == $email && $trie['mdp'] == $mdp && $trie['inscrit']==1) {
-            $utilisateur = true;
-            break;
+              $utilisateur = true;
+              if($trie['admin']==1)
+                $admin=true;  
+              break;
           }
         }
-      $query = "SELECT * from Admin where nomAdmin='".$email."' and mdpAdmin='".$mdp."'";
-      foreach($conn->query($query) as $trie1){
-          if($trie1['nomAdmin'] == $email && $trie1['mdpAdmin'] == $mdp) {
-            $utilisateur = true;
-            $admin = true;
-            break;
-          }
-        }
+      
       if($utilisateur){
         $_SESSION['type'] ="Utilisateur";
         $_SESSION['email'] =$email;
@@ -63,25 +59,25 @@ class Utilisateur extends CI_Model{
         $_SESSION['prenom'] =$trie['prenom'];
         $_SESSION['etat_conn'] ="deconnexion";
         $_SESSION['ADMIN'] = $admin;
+        if($admin)
+          $_SESSION['type'] ="Administrateur";
+        return true;
       }
-      
-      if($admin ==true){
-        $_SESSION['type'] ="Administrateur";
-        $_SESSION['nom'] =$trie1['nomAdmin'];
-        $_SESSION['etat_conn'] ="deconnexion";
-        $_SESSION['ADMIN'] = $admin;
-      }
-      else
-        echo "Authentification invalide";
-      
+      return false;
     }
   
-    public function validez($id){
+    public function valider($id){
       $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
       $query = $conn->prepare("UPDATE Utilisateur set inscrit=1 where idUtilisateur =".$id."");
       $query->execute();
     }
   
+    public function refuser($id){
+      $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
+      $query = $conn->prepare("DELETE FROM Utilisateur where idUtilisateur =".$id."");
+      $query->execute();
+    }
+    
     
     public function getListeNote($id){
       $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
@@ -96,9 +92,9 @@ class Utilisateur extends CI_Model{
     
     public function getListeCommentaires($id){
          $conn =  new PDO("mysql:host=dwarves.iut-fbleau.fr;dbname=reilhac", "reilhac", "toto");
-      $query = "SELECT * from Album, Utilisateur, Commentaire where idAlbum=numAlbum and idUtilisateur=numUtilisateur and idUtilisateur='".$id."' group by (titre)";
+      $query = "SELECT * from Album, Utilisateur, Commentaire where idAlbum=numAlbum and idUtilisateur=numUtilisatuer and idUtilisateur=".$id." group by (titre)";
       foreach($conn->query($query) as $trie){
-          echo "Commentaire :".$trie['commentaire']." Album :".$trie['titre']."<br>";
+          echo "Commentaire :".$trie['contenue']." Album :".$trie['titre']."<br>";
         }
     }
     

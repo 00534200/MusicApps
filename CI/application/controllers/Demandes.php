@@ -8,9 +8,16 @@
     
     public function validation($id){
           $this->load->model('utilisateur');
-          $this->utilisateur->validez($id);
+          $this->utilisateur->valider($id);
           $this->load->helper('url');
           redirect('demandes');
+    }
+    
+    public function refuser($id){
+      $this->load->model('utilisateur');
+      $this->utilisateur->refuser($id);
+      $this->load->helper('url');
+      redirect('demandes');
     }
     
  
