@@ -5,7 +5,7 @@ class Utilisateur extends CI_Model{
     private $nom;
     private $prenom;
     private $mdp;
-    
+  
     public function inserer($email, $nom, $prenom, $mdp){
       $this->nom=$nom;
       $this->prenom=$prenom;

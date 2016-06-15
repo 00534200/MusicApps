@@ -1,0 +1,10 @@
+**BASE DU CODE DES 2 TRIGGERS EN FONCTION DE INSERT ET UPDATE**
+begin
+declare note_global integer;
+declare nb_notes integer;
+declare somme_notes integer;
+set nb_notes = (select count(*) from Note where numAlbum = new.numAlbum);
+set somme_notes = (select sum(note) from Note where numAlbum = new.numAlbum);
+set note_global = somme_notes/nb_notes;
+update Album set note=note_global where idAlbum=new.numAlbum;
+end

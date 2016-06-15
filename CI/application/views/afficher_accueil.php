@@ -56,6 +56,5 @@
 							}	
 					?>
 		</table>
-		
   </body>
 </html>
